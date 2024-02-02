@@ -1039,6 +1039,15 @@
 	    <input name="queryable" type="checkbox" value="yes" checked="checked"/> Execute tests from the QUERYABLE module
 	  </p>
 	  <p>
+	    The specification requires support for the following CRSs depending on the part of the world the service covers.  Some missions may not use all of them.<br/>
+		<div style="margin-left:20px">
+	      <input name="check-epsg-3395" type="checkbox" value="yes" checked="checked"/> Check for EPSG:3395<br/>
+	      <input name="check-epsg-4326" type="checkbox" value="yes" checked="checked"/> Check for EPSG:4326<br/>
+	      <input name="check-epsg-5041" type="checkbox" value="yes" checked="checked"/> Check for EPSG:5041<br/>
+	      <input name="check-epsg-5042" type="checkbox" value="yes" checked="checked"/> Check for EPSG:5042<br/>
+		</div>
+	  </p>
+	  <p>
 	    <input name="follow-ats-structure" type="checkbox" value="yes"/> Follow ATS test structure
 	  </p>
 	  <p>
@@ -1050,6 +1059,10 @@
   <ctl:test name="nsg-wmts:main">
 	<ctl:param name="service-metadata-url"/>
 	<ctl:param name="queryable"/>
+	<ctl:param name="check-epsg-3395"/>
+	<ctl:param name="check-epsg-4326"/>
+	<ctl:param name="check-epsg-5041"/>
+	<ctl:param name="check-epsg-5042"/>
 	<ctl:param name="follow-ats-structure"/>
     <ctl:assertion>The server conforms with the NSG WMTS specification.</ctl:assertion>
     <ctl:code>
@@ -1073,6 +1086,10 @@
 		  <xsl:when test="$follow-ats-structure='yes'">
 			<ctl:call-test name="nsg-wmts:basic">
 			  <ctl:with-param name="queryable" select="$queryable"/>
+              <ctl:with-param name="check-epsg-3395" select="$check-epsg-3395"/>
+              <ctl:with-param name="check-epsg-4326" select="$check-epsg-4326"/>
+              <ctl:with-param name="check-epsg-5041" select="$check-epsg-5041"/>
+              <ctl:with-param name="check-epsg-5042" select="$check-epsg-5042"/>
 			</ctl:call-test>
 			<xsl:if test="$queryable='yes'">
 			  <ctl:call-test name="nsg-wmts:queryable"/>
@@ -1081,15 +1098,27 @@
 		  <xsl:otherwise>
 		    <ctl:call-test name="nsg-wmts:capabilities-response">
 		      <ctl:with-param name="queryable" select="$queryable"/>
+              <ctl:with-param name="check-epsg-3395" select="$check-epsg-3395"/>
+              <ctl:with-param name="check-epsg-4326" select="$check-epsg-4326"/>
+              <ctl:with-param name="check-epsg-5041" select="$check-epsg-5041"/>
+              <ctl:with-param name="check-epsg-5042" select="$check-epsg-5042"/>
 		      <ctl:with-param name="follow-ats-structure" select="'no'"/>
 		      <ctl:with-param name="encoding">REST</ctl:with-param>
 		    </ctl:call-test>
 			<ctl:call-test name="nsg-wmts:t3-GetCapabilities-kvp">
 			  <ctl:with-param name="queryable" select="$queryable"/>
+              <ctl:with-param name="check-epsg-3395" select="$check-epsg-3395"/>
+              <ctl:with-param name="check-epsg-4326" select="$check-epsg-4326"/>
+              <ctl:with-param name="check-epsg-5041" select="$check-epsg-5041"/>
+              <ctl:with-param name="check-epsg-5042" select="$check-epsg-5042"/>
 			  <ctl:with-param name="follow-ats-structure" select="'no'"/>
 			</ctl:call-test>
 			<ctl:call-test name="nsg-wmts:t4-GetCapabilities-soap">
 			  <ctl:with-param name="queryable" select="$queryable"/>
+              <ctl:with-param name="check-epsg-3395" select="$check-epsg-3395"/>
+              <ctl:with-param name="check-epsg-4326" select="$check-epsg-4326"/>
+              <ctl:with-param name="check-epsg-5041" select="$check-epsg-5041"/>
+              <ctl:with-param name="check-epsg-5042" select="$check-epsg-5042"/>
 			  <ctl:with-param name="follow-ats-structure" select="'no'"/>
 			</ctl:call-test>
 			<ctl:call-test name="nsg-wmts:t16-cacheable-resources"/>
@@ -1101,6 +1130,10 @@
   
   <ctl:test name="nsg-wmts:basic">
 	<ctl:param name="queryable"/>
+	<ctl:param name="check-epsg-3395"/>
+	<ctl:param name="check-epsg-4326"/>
+	<ctl:param name="check-epsg-5041"/>
+	<ctl:param name="check-epsg-5042"/>
     <ctl:context>REST Capabilities element</ctl:context>
 	<ctl:assertion>The server conforms to the Basic conformance class.</ctl:assertion>
     <ctl:code>
@@ -1108,16 +1141,30 @@
 	  <ctl:call-test name="nsg-wmts:t2-basic-architectural-styles"/>
 	  <ctl:call-test name="nsg-wmts:t3-GetCapabilities-kvp">
 	    <ctl:with-param name="queryable" select="$queryable"/>
+        <ctl:with-param name="check-epsg-3395" select="$check-epsg-3395"/>
+        <ctl:with-param name="check-epsg-4326" select="$check-epsg-4326"/>
+        <ctl:with-param name="check-epsg-5041" select="$check-epsg-5041"/>
+        <ctl:with-param name="check-epsg-5042" select="$check-epsg-5042"/>
 	  </ctl:call-test>
 	  <ctl:call-test name="nsg-wmts:t4-GetCapabilities-soap">
 	    <ctl:with-param name="queryable" select="$queryable"/>
+		<ctl:with-param name="check-epsg-3395" select="$check-epsg-3395"/>
+		<ctl:with-param name="check-epsg-4326" select="$check-epsg-4326"/>
+		<ctl:with-param name="check-epsg-5041" select="$check-epsg-5041"/>
+		<ctl:with-param name="check-epsg-5042" select="$check-epsg-5042"/>
 	  </ctl:call-test>
 	  <ctl:call-test name="nsg-wmts:t5-GetCapabilities-rest"/>
 	  <!-- Test 6: GetTile KVP covered by base WMTS test suite --> 
 	  <!-- Test 7: GetTile SOAP covered by base WMTS test suite --> 
 	  <!-- Test 8: GetTile REST covered by base WMTS test suite --> 
-      <ctl:call-test name="nsg-wmts:t9-worldwide-crs"/>
-      <ctl:call-test name="nsg-wmts:t10-projected-crs"/>
+      <ctl:call-test name="nsg-wmts:t9-worldwide-crs">
+        <ctl:with-param name="check-epsg-4326" select="$check-epsg-4326"/>
+	  </ctl:call-test>
+      <ctl:call-test name="nsg-wmts:t10-projected-crs">
+        <ctl:with-param name="check-epsg-3395" select="$check-epsg-3395"/>
+        <ctl:with-param name="check-epsg-5041" select="$check-epsg-5041"/>
+        <ctl:with-param name="check-epsg-5042" select="$check-epsg-5042"/>
+	  </ctl:call-test>
       <ctl:call-test name="nsg-wmts:t11-tiling-schemes"/>
       <ctl:call-test name="nsg-wmts:t12-tile-formats"/>
 	  <!-- Test 13: Version Negotiation KVP covered by base WMTS test suite --> 
@@ -1255,6 +1302,10 @@
   
   <ctl:test name="nsg-wmts:t3-GetCapabilities-kvp">
 	<ctl:param name="queryable"/>
+	<ctl:param name="check-epsg-3395"/>
+	<ctl:param name="check-epsg-4326"/>
+	<ctl:param name="check-epsg-5041"/>
+	<ctl:param name="check-epsg-5042"/>
 	<ctl:param name="follow-ats-structure">yes</ctl:param>
     <ctl:context>REST Capabilities element</ctl:context>
 	<ctl:assertion>The server responds to a KVP GetCapabilities request with a valid WMTS 1.0.0 ServiceMetadata document.</ctl:assertion>
@@ -1277,6 +1328,10 @@
 	  <ctl:for-each select="$kvp-capabilities/wmts:Capabilities">
 	    <ctl:call-test name="nsg-wmts:capabilities-response">
 		  <ctl:with-param name="queryable" select="$queryable"/>
+		  <ctl:with-param name="check-epsg-3395" select="$check-epsg-3395"/>
+		  <ctl:with-param name="check-epsg-4326" select="$check-epsg-4326"/>
+		  <ctl:with-param name="check-epsg-5041" select="$check-epsg-5041"/>
+		  <ctl:with-param name="check-epsg-5042" select="$check-epsg-5042"/>
 		  <ctl:with-param name="follow-ats-structure" select="$follow-ats-structure"/>
 		  <ctl:with-param name="rest-layers" select="$rest-layers"/>
 		  <ctl:with-param name="encoding">KVP</ctl:with-param>
@@ -1291,6 +1346,10 @@
   
   <ctl:test name="nsg-wmts:capabilities-response">
 	<ctl:param name="queryable"/>
+	<ctl:param name="check-epsg-3395"/>
+	<ctl:param name="check-epsg-4326"/>
+	<ctl:param name="check-epsg-5041"/>
+	<ctl:param name="check-epsg-5042"/>
 	<ctl:param name="follow-ats-structure">yes</ctl:param>
     <ctl:param name="rest-layers">ows:Identifier elements of the Layers from the REST Capabilities</ctl:param>
 	<ctl:param name="encoding"/>
@@ -1335,10 +1394,18 @@
 	    <ctl:call-test name="nsg-wmts:basic-architectural-styles-6"/>
 	    <ctl:call-test name="nsg-wmts:basic-architectural-styles-7"/>
 	  </xsl:if>
-	  <ctl:call-test name="nsg-wmts:worldwide-crs-1"/>
-	  <ctl:call-test name="nsg-wmts:projected-crs-3395"/>
-	  <ctl:call-test name="nsg-wmts:projected-crs-5041"/>
-	  <ctl:call-test name="nsg-wmts:projected-crs-5042"/>
+	  <xsl:if test="$check-epsg-4326='yes'">
+        <ctl:call-test name="nsg-wmts:worldwide-crs-4326"/>
+	  </xsl:if>
+	  <xsl:if test="$check-epsg-3395='yes'">
+	    <ctl:call-test name="nsg-wmts:projected-crs-3395"/>
+	  </xsl:if>
+	  <xsl:if test="$check-epsg-5041='yes'">
+	    <ctl:call-test name="nsg-wmts:projected-crs-5041"/>
+	  </xsl:if>
+	  <xsl:if test="$check-epsg-5042='yes'">
+	    <ctl:call-test name="nsg-wmts:projected-crs-5042"/>
+	  </xsl:if>
 	  <ctl:call-function name="nsg-wmts:call-tiling-scheme-tests"/>
 	  <ctl:call-test name="nsg-wmts:tile-formats-1"/>
 	  <ctl:call-test name="nsg-wmts:tile-formats-2"/>
@@ -1469,6 +1536,10 @@
 
   <ctl:test name="nsg-wmts:t4-GetCapabilities-soap">
 	<ctl:param name="queryable"/>
+	<ctl:param name="check-epsg-3395"/>
+	<ctl:param name="check-epsg-4326"/>
+	<ctl:param name="check-epsg-5041"/>
+	<ctl:param name="check-epsg-5042"/>
 	<ctl:param name="follow-ats-structure">yes</ctl:param>
     <ctl:context>REST Capabilities element</ctl:context>
 	<ctl:assertion>If there is a SOAP GetCapabilities operation, the server responds to a SOAP GetCapabilities request with a valid WMTS 1.0.0 ServiceMetadata document wrapped in a SOAP 1.2 envelope.</ctl:assertion>
@@ -1486,6 +1557,10 @@
 	  <ctl:for-each select="$soap-capabilities/self::wmts:Capabilities">
 	    <ctl:call-test name="nsg-wmts:capabilities-response">
 		  <ctl:with-param name="queryable" select="$queryable"/>
+		  <ctl:with-param name="check-epsg-3395" select="$check-epsg-3395"/>
+		  <ctl:with-param name="check-epsg-4326" select="$check-epsg-4326"/>
+		  <ctl:with-param name="check-epsg-5041" select="$check-epsg-5041"/>
+		  <ctl:with-param name="check-epsg-5042" select="$check-epsg-5042"/>
 		  <ctl:with-param name="follow-ats-structure" select="$follow-ats-structure"/>
 		  <ctl:with-param name="rest-layers" select="$rest-layers"/>
 		  <ctl:with-param name="encoding">SOAP</ctl:with-param>
@@ -1532,34 +1607,46 @@
   </ctl:test>
   
   <ctl:test name="nsg-wmts:t9-worldwide-crs">
+	<ctl:param name="check-epsg-4326"/>
     <ctl:context>REST Capabilities element</ctl:context>
 	<ctl:assertion>The server supports the WGS 84 coordinate reference system (EPSG code 4326) for all layers.</ctl:assertion>
     <ctl:code>
-      <ctl:call-test name="nsg-wmts:worldwide-crs-1"/>
+	  <xsl:if test="$check-epsg-4326='yes'">
+        <ctl:call-test name="nsg-wmts:worldwide-crs-4326"/>
+	  </xsl:if>
     </ctl:code>
   </ctl:test>
 
-  <ctl:test name="nsg-wmts:worldwide-crs-1">
+  <ctl:test name="nsg-wmts:worldwide-crs-4326">
     <ctl:context>Capabilities element</ctl:context>
 	<ctl:assertion>Each Layer contains a BoundingBox with an EPSG:4326 crs value in URN or URL form.</ctl:assertion>
     <ctl:code>
 	  <ctl:call-function name="nsg-wmts:verify-layers-exist"/>
-      <xsl:for-each select="wmts:Contents/wmts:Layer">
-	    <xsl:if test="not(ows:BoundingBox[@crs='http://www.opengis.net/def/crs/EPSG/0/4326' or @crs='urn:ogc:def:crs:EPSG::4326'])">
+	  <xsl:for-each select="wmts:Contents/wmts:Layer">
+		<xsl:if test="not(ows:BoundingBox[@crs='http://www.opengis.net/def/crs/EPSG/0/4326' or @crs='urn:ogc:def:crs:EPSG::4326'])">
 		  <ctl:message>Failure on Layer "<xsl:value-of select="ows:Identifier"/>"</ctl:message>
-          <ctl:fail/>
-        </xsl:if>
+		  <ctl:fail/>
+		</xsl:if>
 	  </xsl:for-each>
     </ctl:code>
   </ctl:test>
 
   <ctl:test name="nsg-wmts:t10-projected-crs">
+	<ctl:param name="check-epsg-3395"/>
+	<ctl:param name="check-epsg-5041"/>
+	<ctl:param name="check-epsg-5042"/>
     <ctl:context>REST Capabilities element</ctl:context>
 	<ctl:assertion>The server supports the coordinate reference systems from table 13 for each layer that contains tiles overlapping their validity zones.</ctl:assertion>
     <ctl:code>
-      <ctl:call-test name="nsg-wmts:projected-crs-3395"/>
-      <ctl:call-test name="nsg-wmts:projected-crs-5041"/>
-      <ctl:call-test name="nsg-wmts:projected-crs-5042"/>
+	  <xsl:if test="$check-epsg-3395='yes'">
+	    <ctl:call-test name="nsg-wmts:projected-crs-3395"/>
+	  </xsl:if>
+	  <xsl:if test="$check-epsg-5041='yes'">
+	    <ctl:call-test name="nsg-wmts:projected-crs-5041"/>
+	  </xsl:if>
+	  <xsl:if test="$check-epsg-5042='yes'">
+	    <ctl:call-test name="nsg-wmts:projected-crs-5042"/>
+	  </xsl:if>
     </ctl:code>
   </ctl:test>
 
@@ -1568,15 +1655,15 @@
 	<ctl:assertion>Each Layer that contains a BoundingBox with an EPSG:4326 crs value that overlaps the window (-180, -85.084059) to (180, 85.084059) also contains a BoundingBox with an EPSG:3395 crs value in URN or URL form.</ctl:assertion>
     <ctl:code>
 	  <ctl:call-function name="nsg-wmts:verify-layers-exist"/>
-      <xsl:for-each select="wmts:Contents/wmts:Layer/ows:BoundingBox[@crs='http://www.opengis.net/def/crs/EPSG/0/4326' or @crs='urn:ogc:def:crs:EPSG::4326']">
-	    <xsl:variable name="min-lat" select="substring-before(normalize-space(ows:LowerCorner), ' ')"/>
-	    <xsl:variable name="max-lat" select="substring-before(normalize-space(ows:UpperCorner), ' ')"/>
+	  <xsl:for-each select="wmts:Contents/wmts:Layer/ows:BoundingBox[@crs='http://www.opengis.net/def/crs/EPSG/0/4326' or @crs='urn:ogc:def:crs:EPSG::4326']">
+		<xsl:variable name="min-lat" select="substring-before(normalize-space(ows:LowerCorner), ' ')"/>
+		<xsl:variable name="max-lat" select="substring-before(normalize-space(ows:UpperCorner), ' ')"/>
 		<xsl:if test="number($min-lat) le 85.084059 or number($max-lat) ge -85.084059">
-	      <xsl:if test="not(../ows:BoundingBox[@crs='http://www.opengis.net/def/crs/EPSG/0/3395' or @crs='urn:ogc:def:crs:EPSG::3395'])">
-		    <ctl:message>Failure on Layer "<xsl:value-of select="../ows:Identifier"/>"</ctl:message>
-            <ctl:fail/>
-          </xsl:if>
-        </xsl:if>
+		  <xsl:if test="not(../ows:BoundingBox[@crs='http://www.opengis.net/def/crs/EPSG/0/3395' or @crs='urn:ogc:def:crs:EPSG::3395'])">
+			<ctl:message>Failure on Layer "<xsl:value-of select="../ows:Identifier"/>"</ctl:message>
+			<ctl:fail/>
+		  </xsl:if>
+		</xsl:if>
 	  </xsl:for-each>
 	  <xsl:if test="wmts:Contents/wmts:Layer[not(ows:BoundingBox[@crs='http://www.opengis.net/def/crs/EPSG/0/4326' or @crs='urn:ogc:def:crs:EPSG::4326'])]">
 		<ctl:message>Warning: There are Layers without an EPSG:4326 BoundingBox</ctl:message>
@@ -1590,14 +1677,14 @@
 	<ctl:assertion>Each layer that contains a BoundingBox with an EPSG:4326 crs value that overlaps the window (-180, 60) to (180, 90) also contains a BoundingBox with an EPSG:5041 crs value in URN or URL form.</ctl:assertion>
     <ctl:code>
 	  <ctl:call-function name="nsg-wmts:verify-layers-exist"/>
-      <xsl:for-each select="wmts:Contents/wmts:Layer/ows:BoundingBox[@crs='http://www.opengis.net/def/crs/EPSG/0/4326' or @crs='urn:ogc:def:crs:EPSG::4326']">
-	    <xsl:variable name="max-lat" select="substring-before(normalize-space(ows:UpperCorner), ' ')"/>
+	  <xsl:for-each select="wmts:Contents/wmts:Layer/ows:BoundingBox[@crs='http://www.opengis.net/def/crs/EPSG/0/4326' or @crs='urn:ogc:def:crs:EPSG::4326']">
+		<xsl:variable name="max-lat" select="substring-before(normalize-space(ows:UpperCorner), ' ')"/>
 		<xsl:if test="number($max-lat) ge 60">
-	      <xsl:if test="not(../ows:BoundingBox[@crs='http://www.opengis.net/def/crs/EPSG/0/5041' or @crs='urn:ogc:def:crs:EPSG::5041'])">
-		    <ctl:message>Failure on Layer "<xsl:value-of select="../ows:Identifier"/>"</ctl:message>
-            <ctl:fail/>
-          </xsl:if>
-        </xsl:if>
+		  <xsl:if test="not(../ows:BoundingBox[@crs='http://www.opengis.net/def/crs/EPSG/0/5041' or @crs='urn:ogc:def:crs:EPSG::5041'])">
+			<ctl:message>Failure on Layer "<xsl:value-of select="../ows:Identifier"/>"</ctl:message>
+			<ctl:fail/>
+		  </xsl:if>
+		</xsl:if>
 	  </xsl:for-each>
 	  <xsl:if test="wmts:Contents/wmts:Layer[not(ows:BoundingBox[@crs='http://www.opengis.net/def/crs/EPSG/0/4326' or @crs='urn:ogc:def:crs:EPSG::4326'])]">
 		<ctl:message>Warning: There are Layers without an EPSG:4326 BoundingBox</ctl:message>
@@ -1611,14 +1698,14 @@
 	<ctl:assertion>Each layer that contains a BoundingBox with an EPSG:4326 crs value that overlaps the window (-180, -90) to (180, -60) also contains a BoundingBox with an EPSG:5042 crs value in URN or URL form.</ctl:assertion>
     <ctl:code>
 	  <ctl:call-function name="nsg-wmts:verify-layers-exist"/>
-      <xsl:for-each select="wmts:Contents/wmts:Layer/ows:BoundingBox[@crs='http://www.opengis.net/def/crs/EPSG/0/4326' or @crs='urn:ogc:def:crs:EPSG::4326']">
-	    <xsl:variable name="min-lat" select="substring-before(normalize-space(ows:LowerCorner), ' ')"/>
+	  <xsl:for-each select="wmts:Contents/wmts:Layer/ows:BoundingBox[@crs='http://www.opengis.net/def/crs/EPSG/0/4326' or @crs='urn:ogc:def:crs:EPSG::4326']">
+		<xsl:variable name="min-lat" select="substring-before(normalize-space(ows:LowerCorner), ' ')"/>
 		<xsl:if test="number($min-lat) le -60">
-	      <xsl:if test="not(../ows:BoundingBox[@crs='http://www.opengis.net/def/crs/EPSG/0/5042' or @crs='urn:ogc:def:crs:EPSG::5042'])">
-		    <ctl:message>Failure on Layer "<xsl:value-of select="../ows:Identifier"/>"</ctl:message>
-            <ctl:fail/>
-          </xsl:if>
-        </xsl:if>
+		  <xsl:if test="not(../ows:BoundingBox[@crs='http://www.opengis.net/def/crs/EPSG/0/5042' or @crs='urn:ogc:def:crs:EPSG::5042'])">
+			<ctl:message>Failure on Layer "<xsl:value-of select="../ows:Identifier"/>"</ctl:message>
+			<ctl:fail/>
+		  </xsl:if>
+		</xsl:if>
 	  </xsl:for-each>
 	  <xsl:if test="wmts:Contents/wmts:Layer[not(ows:BoundingBox[@crs='http://www.opengis.net/def/crs/EPSG/0/4326' or @crs='urn:ogc:def:crs:EPSG::4326'])]">
 		<ctl:message>Warning: There are Layers without an EPSG:4326 BoundingBox</ctl:message>
