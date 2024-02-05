@@ -5,19 +5,19 @@
   <standard>
     <name>NSG Web Map Tile Service (WMTS)</name>
     <version>
-      <name>1.2.0</name>
+      <name>1.2.1</name>
       <suite>
         <namespace-uri>urn:us:gov:dod:nsg</namespace-uri>
         <prefix>nsg</prefix>
         <local-name>wmts</local-name>
-        <title>NSG WMTS 1.2.0 Conformance Test Suite</title>
+        <title>NSG WMTS 1.2.1 Conformance Test Suite</title>
         <description>Checks an NSG WMTS for conformance to the spec</description>
       </suite>
       <revision>
         <name>${version}</name>
         <status>Draft</status>
         <sources>
-          <source>wmts10-nsg/1.2.0/ctl</source>
+          <source>wmts10-nsg/1.2.1/ctl</source>
         </sources>
       </revision>
     </version>
