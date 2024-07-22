@@ -2095,12 +2095,12 @@
 	<ctl:assertion>The server provides an expiration date for {$encoding} tile resources using an HTTP control header.</ctl:assertion>
     <ctl:code>
 	  <xsl:variable name="layer" select="string((wmts:Contents/wmts:Layer[count(wmts:Dimension) le 3 and count(wmts:Dimension[not(wmts:Default)])=0])[1]/ows:Identifier)"/>
-	  <xsl:variable name="tms" select="string(wmts:Contents/wmts:Layer[ows:Identifier=$layer]/wmts:TileMatrixSetLink[1]/wmts:TileMatrixSet)"/>
+	  <xsl:variable name="tms-id" select="string(wmts:Contents/wmts:Layer[ows:Identifier=$layer]/wmts:TileMatrixSetLink[1]/wmts:TileMatrixSet)"/>
 	  <xsl:variable name="tml">
 	    <xsl:copy-of select="wmts:Contents/wmts:Layer[ows:Identifier=$layer]/wmts:TileMatrixSetLink[1]/wmts:TileMatrixSetLimits/wmts:TileMatrixLimits[1]"/>
 		<xsl:if test="not(wmts:Contents/wmts:Layer[ows:Identifier=$layer]/wmts:TileMatrixSetLink[1]/wmts:TileMatrixSetLimits/wmts:TileMatrixLimits)">
 		  <wmts:TileMatrixLimits>
-		    <wmts:TileMatrix><xsl:value-of select="$tms"/></wmts:TileMatrix>
+		    <wmts:TileMatrix><xsl:value-of select="wmts:Contents/wmts:TileMatrixSet[ows:Identifier=$tms-id]/wmts:TileMatrix[1]/ows:Identifier"/></wmts:TileMatrix>
             <wmts:MinTileRow>0</wmts:MinTileRow>
             <wmts:MinTileCol>0</wmts:MinTileCol>
 		  </wmts:TileMatrixLimits>
@@ -2122,7 +2122,7 @@
 				<xsl:value-of select="encode-for-uri($layer)"/>
 			  </ctl:param>
 			  <ctl:param name="TileMatRixSet">
-				<xsl:value-of select="encode-for-uri($tms)"/>
+				<xsl:value-of select="encode-for-uri($tms-id)"/>
 			  </ctl:param>
 			  <ctl:param name="ReQuEsT">GetTile</ctl:param>
 			  <ctl:param name="VeRsIoN">1.0.0</ctl:param>
@@ -2161,7 +2161,7 @@
 					  <xsl:value-of select="ows:Default"/>
 					</wmts:DimensionNameValue>
 				  </xsl:for-each>
-				  <wmts:TileMatrixSet><xsl:value-of select="$tms"/></wmts:TileMatrixSet>
+				  <wmts:TileMatrixSet><xsl:value-of select="$tms-id"/></wmts:TileMatrixSet>
 				  <wmts:TileMatrix><xsl:value-of select="$tml/wmts:TileMatrixLimits/wmts:TileMatrix"/></wmts:TileMatrix>
 				  <wmts:TileRow><xsl:value-of select="$tml/wmts:TileMatrixLimits/wmts:MinTileRow"/></wmts:TileRow>
 				  <wmts:TileCol><xsl:value-of select="$tml/wmts:TileMatrixLimits/wmts:MinTileCol"/></wmts:TileCol>
@@ -2179,7 +2179,7 @@
 			<!-- The template var name for style is uncertain.  In 07-057r7, "Style" is used in the text of 10.2.1, but "style" is used in table 32.  Resolve by allowing either. -->
 			<xsl:variable name="url-2" select="replace($url-1, '!style!', encode-for-uri(wmts:Contents/wmts:Layer[ows:Identifier=$layer]/wmts:Style[1]/ows:Identifier))"/>
 			<xsl:variable name="url-3" select="replace($url-2, '!Style!', encode-for-uri(wmts:Contents/wmts:Layer[ows:Identifier=$layer]/wmts:Style[1]/ows:Identifier))"/>
-			<xsl:variable name="url-4" select="replace($url-3, '!TileMatrixSet!', encode-for-uri($tms))"/>
+			<xsl:variable name="url-4" select="replace($url-3, '!TileMatrixSet!', encode-for-uri($tms-id))"/>
 			<xsl:variable name="url-5" select="replace($url-4, '!TileMatrix!', encode-for-uri($tml/wmts:TileMatrixLimits/wmts:TileMatrix))"/>
 			<xsl:variable name="url-6" select="replace($url-5, '!TileRow!', encode-for-uri($tml/wmts:TileMatrixLimits/wmts:MinTileRow))"/>
 			<xsl:variable name="url-7" select="replace($url-6, '!TileCol!', encode-for-uri($tml/wmts:TileMatrixLimits/wmts:MinTileCol))"/>
