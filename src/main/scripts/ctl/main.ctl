@@ -1869,8 +1869,8 @@
 		  <xsl:for-each select="wmts:Contents/wmts:TileMatrixSet[ows:Identifier=$tms-id]">
 		    <xsl:if test="not(ows:BoundingBox) or
 			              not(ows:BoundingBox[@crs=$crs-url or @crs=$crs-urn]) or
-		                  not(nsg-wmts:numbers-close(ows:BoundingBox/ows:LowerCorner,$normative-tms/wmts:TileMatrixSet/ows:BoundingBox/ows:LowerCorner)) or
-						  not(nsg-wmts:numbers-close(ows:BoundingBox/ows:UpperCorner,$normative-tms/wmts:TileMatrixSet/ows:BoundingBox/ows:UpperCorner))">
+		                  not(xs:boolean(nsg-wmts:numbers-close(ows:BoundingBox/ows:LowerCorner,$normative-tms/wmts:TileMatrixSet/ows:BoundingBox/ows:LowerCorner))) or
+						  not(xs:boolean(nsg-wmts:numbers-close(ows:BoundingBox/ows:UpperCorner,$normative-tms/wmts:TileMatrixSet/ows:BoundingBox/ows:UpperCorner)))">
 			  <ctl:message>Failure on BoundingBox for TileMatrixSet <xsl:value-of select="$tms-id"/></ctl:message>
 			  <ctl:fail/>
 			</xsl:if>
@@ -1884,8 +1884,8 @@
 			</xsl:if>
 		    <xsl:for-each select="wmts:TileMatrix">
 			  <xsl:variable name="pos" select="position()"/>
-		      <xsl:if test="not(nsg-wmts:numbers-close(wmts:ScaleDenominator,$normative-tms/wmts:TileMatrixSet/wmts:TileMatrix[$pos]/wmts:ScaleDenominator)) or
-		                    not(nsg-wmts:numbers-close(wmts:TopLeftCorner,$normative-tms/wmts:TileMatrixSet/wmts:TileMatrix[$pos]/wmts:TopLeftCorner)) or
+		      <xsl:if test="not(xs:boolean(nsg-wmts:numbers-close(wmts:ScaleDenominator,$normative-tms/wmts:TileMatrixSet/wmts:TileMatrix[$pos]/wmts:ScaleDenominator))) or
+		                    not(xs:boolean(nsg-wmts:numbers-close(wmts:TopLeftCorner,$normative-tms/wmts:TileMatrixSet/wmts:TileMatrix[$pos]/wmts:TopLeftCorner))) or
 		                    not(wmts:TileWidth=$normative-tms/wmts:TileMatrixSet/wmts:TileMatrix[$pos]/wmts:TileWidth) or
 		                    not(wmts:TileHeight=$normative-tms/wmts:TileMatrixSet/wmts:TileMatrix[$pos]/wmts:TileHeight) or
 		                    not(wmts:MatrixWidth=$normative-tms/wmts:TileMatrixSet/wmts:TileMatrix[$pos]/wmts:MatrixWidth) or
